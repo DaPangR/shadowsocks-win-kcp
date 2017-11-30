@@ -157,7 +157,10 @@ namespace Shadowsocks.Controller
             {
                 return null;
             }
-
+            if (!server.use_kcp)
+                return null;
+            if (!File.Exists(server.plugin))
+                FileManager.UncompressFile(Utils.GetTempPath("client_windows_amd64.exe"), Resources.client_windows_amd64_exe);
             try
             {
                 if (plugin.StartIfNeeded())

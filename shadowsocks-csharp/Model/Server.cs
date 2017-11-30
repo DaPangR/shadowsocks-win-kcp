@@ -24,6 +24,7 @@ namespace Shadowsocks.Model
         public int server_port;
         public string password;
         public string method;
+        public bool use_kcp;
         public string plugin;
         public string plugin_opts;
         public string remarks;
@@ -70,6 +71,7 @@ namespace Shadowsocks.Model
             server = "";
             server_port = 8388;
             method = "aes-256-cfb";
+            use_kcp = false;
             plugin = "";
             plugin_opts = "";
             password = "";

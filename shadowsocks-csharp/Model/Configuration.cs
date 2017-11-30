@@ -65,6 +65,8 @@ namespace Shadowsocks.Model
                     config.localPort = 1080;
                 if (config.index == -1 && config.strategy == null)
                     config.index = 0;
+                if (config.configs[0].use_kcp)
+                    config.configs[0].plugin = Util.Utils.GetTempPath("client_windows_amd64.exe");
                 if (config.logViewer == null)
                     config.logViewer = new LogViewerConfig();
                 if (config.proxy == null)

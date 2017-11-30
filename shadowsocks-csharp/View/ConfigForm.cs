@@ -48,8 +48,8 @@ namespace Shadowsocks.View
             PasswordLabel.Text = I18N.GetString("Password");
             ShowPasswdCheckBox.Text = I18N.GetString("Show Password");
             EncryptionLabel.Text = I18N.GetString("Encryption");
-            PluginLabel.Text = I18N.GetString("Plugin");
-            PluginOptionsLabel.Text = I18N.GetString("Plugin Options");
+            UseKcpCheckBox.Text = I18N.GetString("Use Kcp");
+            PluginOptionsLabel.Text = I18N.GetString("Kcp Arguments");
             ProxyPortLabel.Text = I18N.GetString("Proxy Port");
             RemarksLabel.Text = I18N.GetString("Remarks");
             TimeoutLabel.Text = I18N.GetString("Timeout(Sec)");
@@ -97,8 +97,9 @@ namespace Shadowsocks.View
                 }
                 server.password = PasswordTextBox.Text;
                 server.method = EncryptionSelect.Text;
-                server.plugin = PluginTextBox.Text;
-                server.plugin_opts = PluginOptionsTextBox.Text;
+                //server.plugin = Util.Utils.GetTempPath("client_windows_amd64");
+                server.use_kcp = UseKcpCheckBox.Checked;
+                server.plugin_opts = KcpArgumentTextBox.Text;
                 server.remarks = RemarksTextBox.Text;
                 if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
                 {
@@ -132,8 +133,8 @@ namespace Shadowsocks.View
                 PasswordTextBox.Text = server.password;
                 ProxyPortTextBox.Text = _modifiedConfiguration.localPort.ToString();
                 EncryptionSelect.Text = server.method ?? "aes-256-cfb";
-                PluginTextBox.Text = server.plugin;
-                PluginOptionsTextBox.Text = server.plugin_opts;
+                UseKcpCheckBox.Checked = server.use_kcp;
+                KcpArgumentTextBox.Text = server.plugin_opts;
                 RemarksTextBox.Text = server.remarks;
                 TimeoutTextBox.Text = server.timeout.ToString();
             }
@@ -363,6 +364,11 @@ namespace Shadowsocks.View
         private void ShowPasswdCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             this.PasswordTextBox.UseSystemPasswordChar = !this.ShowPasswdCheckBox.Checked;
+        }
+
+        private void UseKcpCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
