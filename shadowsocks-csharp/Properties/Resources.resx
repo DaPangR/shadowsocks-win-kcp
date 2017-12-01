@@ -121,8 +121,8 @@
   <data name="abp_js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Data\abp.js.gz;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="client_windows_amd64_exe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Data\client_windows_amd64.exe.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="client_windows_386_exe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\client_windows_386.exe.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ja" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Data\ja.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

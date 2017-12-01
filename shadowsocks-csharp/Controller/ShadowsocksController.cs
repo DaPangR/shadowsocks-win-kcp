@@ -36,7 +36,7 @@ namespace Shadowsocks.Controller
         private StrategyManager _strategyManager;
         private PrivoxyRunner privoxyRunner;
         private GFWListUpdater gfwListUpdater;
-        private readonly ConcurrentDictionary<Server, Sip003Plugin> _pluginsByServer;
+        private readonly ConcurrentDictionary<Server, KcpPlugin> _pluginsByServer;
 
         public AvailabilityStatistics availabilityStatistics = AvailabilityStatistics.Instance;
         public StatisticsStrategyConfiguration StatisticsConfiguration { get; private set; }
@@ -84,7 +84,7 @@ namespace Shadowsocks.Controller
             _config = Configuration.Load();
             StatisticsConfiguration = StatisticsStrategyConfiguration.Load();
             _strategyManager = new StrategyManager(this);
-            _pluginsByServer = new ConcurrentDictionary<Server, Sip003Plugin>();
+            _pluginsByServer = new ConcurrentDictionary<Server, KcpPlugin>();
             StartReleasingMemory();
             StartTrafficStatistics(61);
         }
@@ -152,7 +152,7 @@ namespace Shadowsocks.Controller
 
         public EndPoint GetPluginLocalEndPointIfConfigured(Server server)
         {
-            var plugin = _pluginsByServer.GetOrAdd(server, Sip003Plugin.CreateIfConfigured);
+            var plugin = _pluginsByServer.GetOrAdd(server, KcpPlugin.CreateIfConfigured);
             if (plugin == null)
             {
                 return null;
@@ -160,7 +160,7 @@ namespace Shadowsocks.Controller
             if (!server.use_kcp)
                 return null;
             if (!File.Exists(server.plugin))
-                FileManager.UncompressFile(Utils.GetTempPath("client_windows_amd64.exe"), Resources.client_windows_amd64_exe);
+                FileManager.UncompressFile(Utils.GetTempPath("client_windows_386.exe"), Resources.client_windows_386_exe);
             try
             {
                 if (plugin.StartIfNeeded())
@@ -358,9 +358,9 @@ namespace Shadowsocks.Controller
                 string websafeBase64 = base64.Replace('+', '-').Replace('/', '_').TrimEnd('=');
 
                 string pluginPart = server.plugin;
-                if (!string.IsNullOrWhiteSpace(server.plugin_opts))
+                if (!string.IsNullOrWhiteSpace(server.kcp_argument))
                 {
-                    pluginPart += ";" + server.plugin_opts;
+                    pluginPart += ";" + server.kcp_argument;
                 }
 
                 url = string.Format(
@@ -491,7 +491,7 @@ namespace Shadowsocks.Controller
             }
         }
 
-        protected void Reload()
+        protected void Reload_()
         {
             StopPlugins();
 
@@ -538,6 +538,100 @@ namespace Shadowsocks.Controller
                 }
 
                 StartPlugins();
+                privoxyRunner.Start(_config);
+
+                TCPRelay tcpRelay = new TCPRelay(this, _config);
+                UDPRelay udpRelay = new UDPRelay(this);
+                List<Listener.IService> services = new List<Listener.IService>();
+                services.Add(tcpRelay);
+                services.Add(udpRelay);
+                services.Add(_pacServer);
+                services.Add(new PortForwarder(privoxyRunner.RunningPort));
+                _listener = new Listener(services);
+                _listener.Start(_config);
+            }
+            catch (Exception e)
+            {
+                // translate Microsoft language into human language
+                // i.e. An attempt was made to access a socket in a way forbidden by its access permissions => Port already in use
+                if (e is SocketException)
+                {
+                    SocketException se = (SocketException)e;
+                    if (se.SocketErrorCode == SocketError.AccessDenied)
+                    {
+                        e = new Exception(I18N.GetString("Port already in use"), e);
+                    }
+                }
+                Logging.LogUsefulException(e);
+                ReportError(e);
+            }
+
+            if (ConfigChanged != null)
+            {
+                ConfigChanged(this, new EventArgs());
+            }
+
+            UpdateSystemProxy();
+            Utils.ReleaseMemory(true);
+        }//源reload的备份
+
+        protected void Reload()
+        {
+            StopPlugins();
+
+            Encryption.RNG.Reload();
+            // some logic in configuration updated the config when saving, we need to read it again
+            _config = Configuration.Load();
+
+            StatisticsConfiguration = StatisticsStrategyConfiguration.Load();
+
+            if (privoxyRunner == null)
+            {
+                privoxyRunner = new PrivoxyRunner();
+            }
+            if (_pacServer == null)
+            {
+                _pacServer = new PACServer();
+                _pacServer.PACFileChanged += pacServer_PACFileChanged;
+                _pacServer.UserRuleFileChanged += pacServer_UserRuleFileChanged;
+            }
+            _pacServer.UpdateConfiguration(_config);
+            if (gfwListUpdater == null)
+            {
+                gfwListUpdater = new GFWListUpdater();
+                gfwListUpdater.UpdateCompleted += pacServer_PACUpdateCompleted;
+                gfwListUpdater.Error += pacServer_PACUpdateError;
+            }
+
+            availabilityStatistics.UpdateConfiguration(this);
+
+            if (_listener != null)
+            {
+                _listener.Stop();
+            }
+            // don't put PrivoxyRunner.Start() before pacServer.Stop()
+            // or bind will fail when switching bind address from 0.0.0.0 to 127.0.0.1
+            // though UseShellExecute is set to true now
+            // http://stackoverflow.com/questions/10235093/socket-doesnt-close-after-application-exits-if-a-launched-process-is-open
+            privoxyRunner.Stop();
+            try
+            {
+                var strategy = GetCurrentStrategy();
+                if (strategy != null)
+                {
+                    strategy.ReloadServers();
+                }
+
+                StartPlugins();
+
+                if(_config.configs[_config.index].use_kcp)
+                {
+                    _config.configs[_config.index].ss_server = _config.configs[_config.index].server;
+                    _config.configs[_config.index].server = "127.0.0.1";
+                    _config.configs[_config.index].ss_port = _config.configs[_config.index].server_port;
+                    _config.configs[_config.index].server_port = _config.configs[_config.index].kcp_local_port;
+                }
+                
                 privoxyRunner.Start(_config);
 
                 TCPRelay tcpRelay = new TCPRelay(this, _config);

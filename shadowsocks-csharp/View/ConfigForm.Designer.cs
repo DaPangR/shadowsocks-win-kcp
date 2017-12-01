@@ -62,6 +62,8 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.DuplicateButton = new System.Windows.Forms.Button();
+            this.KcpPortLabel = new System.Windows.Forms.Label();
+            this.KcpRemotePortTextBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.ServerGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -78,9 +80,9 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.PluginOptionsLabel, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.RemarksTextBox, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.RemarksLabel, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.PluginOptionsLabel, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.RemarksTextBox, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.RemarksLabel, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.IPLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.ServerPortLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.PasswordLabel, 0, 2);
@@ -89,16 +91,18 @@
             this.tableLayoutPanel1.Controls.Add(this.PasswordTextBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.EncryptionLabel, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.EncryptionSelect, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.TimeoutLabel, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.TimeoutTextBox, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.KcpArgumentTextBox, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.TimeoutLabel, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.TimeoutTextBox, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.KcpArgumentTextBox, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.ShowPasswdCheckBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.UseKcpCheckBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.KcpRemotePortTextBox, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.KcpPortLabel, 0, 6);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 21);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 11;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -109,14 +113,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(261, 238);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 265);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // PluginOptionsLabel
             // 
             this.PluginOptionsLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.PluginOptionsLabel.AutoSize = true;
-            this.PluginOptionsLabel.Location = new System.Drawing.Point(6, 161);
+            this.PluginOptionsLabel.Location = new System.Drawing.Point(18, 188);
             this.PluginOptionsLabel.Name = "PluginOptionsLabel";
             this.PluginOptionsLabel.Size = new System.Drawing.Size(83, 12);
             this.PluginOptionsLabel.TabIndex = 15;
@@ -125,7 +130,7 @@
             // RemarksTextBox
             // 
             this.RemarksTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemarksTextBox.Location = new System.Drawing.Point(95, 184);
+            this.RemarksTextBox.Location = new System.Drawing.Point(107, 211);
             this.RemarksTextBox.MaxLength = 32;
             this.RemarksTextBox.Name = "RemarksTextBox";
             this.RemarksTextBox.Size = new System.Drawing.Size(160, 21);
@@ -136,7 +141,7 @@
             // 
             this.RemarksLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.RemarksLabel.AutoSize = true;
-            this.RemarksLabel.Location = new System.Drawing.Point(42, 188);
+            this.RemarksLabel.Location = new System.Drawing.Point(54, 215);
             this.RemarksLabel.Name = "RemarksLabel";
             this.RemarksLabel.Size = new System.Drawing.Size(47, 12);
             this.RemarksLabel.TabIndex = 9;
@@ -146,7 +151,7 @@
             // 
             this.IPLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.IPLabel.AutoSize = true;
-            this.IPLabel.Location = new System.Drawing.Point(30, 10);
+            this.IPLabel.Location = new System.Drawing.Point(42, 10);
             this.IPLabel.Name = "IPLabel";
             this.IPLabel.Size = new System.Drawing.Size(59, 12);
             this.IPLabel.TabIndex = 0;
@@ -156,7 +161,7 @@
             // 
             this.ServerPortLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.ServerPortLabel.AutoSize = true;
-            this.ServerPortLabel.Location = new System.Drawing.Point(18, 37);
+            this.ServerPortLabel.Location = new System.Drawing.Point(30, 37);
             this.ServerPortLabel.Name = "ServerPortLabel";
             this.ServerPortLabel.Size = new System.Drawing.Size(71, 12);
             this.ServerPortLabel.TabIndex = 1;
@@ -166,7 +171,7 @@
             // 
             this.PasswordLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(36, 64);
+            this.PasswordLabel.Location = new System.Drawing.Point(48, 64);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(53, 12);
             this.PasswordLabel.TabIndex = 2;
@@ -176,7 +181,7 @@
             // IPTextBox
             // 
             this.IPTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.IPTextBox.Location = new System.Drawing.Point(95, 6);
+            this.IPTextBox.Location = new System.Drawing.Point(107, 6);
             this.IPTextBox.MaxLength = 512;
             this.IPTextBox.Name = "IPTextBox";
             this.IPTextBox.Size = new System.Drawing.Size(160, 21);
@@ -186,7 +191,7 @@
             // ServerPortTextBox
             // 
             this.ServerPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ServerPortTextBox.Location = new System.Drawing.Point(95, 33);
+            this.ServerPortTextBox.Location = new System.Drawing.Point(107, 33);
             this.ServerPortTextBox.MaxLength = 10;
             this.ServerPortTextBox.Name = "ServerPortTextBox";
             this.ServerPortTextBox.Size = new System.Drawing.Size(160, 21);
@@ -196,7 +201,7 @@
             // PasswordTextBox
             // 
             this.PasswordTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasswordTextBox.Location = new System.Drawing.Point(95, 60);
+            this.PasswordTextBox.Location = new System.Drawing.Point(107, 60);
             this.PasswordTextBox.MaxLength = 256;
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.Size = new System.Drawing.Size(160, 21);
@@ -208,7 +213,7 @@
             // 
             this.EncryptionLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.EncryptionLabel.AutoSize = true;
-            this.EncryptionLabel.Location = new System.Drawing.Point(24, 113);
+            this.EncryptionLabel.Location = new System.Drawing.Point(36, 113);
             this.EncryptionLabel.Name = "EncryptionLabel";
             this.EncryptionLabel.Size = new System.Drawing.Size(65, 12);
             this.EncryptionLabel.TabIndex = 8;
@@ -241,7 +246,7 @@
             "aes-192-gcm",
             "aes-256-gcm",
             "chacha20-ietf-poly1305"});
-            this.EncryptionSelect.Location = new System.Drawing.Point(95, 109);
+            this.EncryptionSelect.Location = new System.Drawing.Point(107, 109);
             this.EncryptionSelect.Name = "EncryptionSelect";
             this.EncryptionSelect.Size = new System.Drawing.Size(160, 20);
             this.EncryptionSelect.TabIndex = 3;
@@ -250,7 +255,7 @@
             // 
             this.TimeoutLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.TimeoutLabel.AutoSize = true;
-            this.TimeoutLabel.Location = new System.Drawing.Point(12, 215);
+            this.TimeoutLabel.Location = new System.Drawing.Point(24, 242);
             this.TimeoutLabel.Name = "TimeoutLabel";
             this.TimeoutLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.TimeoutLabel.Size = new System.Drawing.Size(77, 12);
@@ -260,7 +265,7 @@
             // TimeoutTextBox
             // 
             this.TimeoutTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TimeoutTextBox.Location = new System.Drawing.Point(95, 211);
+            this.TimeoutTextBox.Location = new System.Drawing.Point(107, 238);
             this.TimeoutTextBox.MaxLength = 5;
             this.TimeoutTextBox.Name = "TimeoutTextBox";
             this.TimeoutTextBox.Size = new System.Drawing.Size(160, 21);
@@ -269,7 +274,7 @@
             // KcpArgumentTextBox
             // 
             this.KcpArgumentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.KcpArgumentTextBox.Location = new System.Drawing.Point(95, 157);
+            this.KcpArgumentTextBox.Location = new System.Drawing.Point(107, 184);
             this.KcpArgumentTextBox.MaxLength = 256;
             this.KcpArgumentTextBox.Name = "KcpArgumentTextBox";
             this.KcpArgumentTextBox.Size = new System.Drawing.Size(160, 21);
@@ -281,7 +286,7 @@
             this.ShowPasswdCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowPasswdCheckBox.AutoSize = true;
-            this.ShowPasswdCheckBox.Location = new System.Drawing.Point(95, 87);
+            this.ShowPasswdCheckBox.Location = new System.Drawing.Point(107, 87);
             this.ShowPasswdCheckBox.Name = "ShowPasswdCheckBox";
             this.ShowPasswdCheckBox.Size = new System.Drawing.Size(102, 16);
             this.ShowPasswdCheckBox.TabIndex = 16;
@@ -293,7 +298,7 @@
             // UseKcpCheckBox
             // 
             this.UseKcpCheckBox.AutoSize = true;
-            this.UseKcpCheckBox.Location = new System.Drawing.Point(95, 135);
+            this.UseKcpCheckBox.Location = new System.Drawing.Point(107, 135);
             this.UseKcpCheckBox.Name = "UseKcpCheckBox";
             this.UseKcpCheckBox.Size = new System.Drawing.Size(66, 16);
             this.UseKcpCheckBox.TabIndex = 17;
@@ -369,7 +374,7 @@
             this.ServerGroupBox.Location = new System.Drawing.Point(178, 0);
             this.ServerGroupBox.Margin = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.ServerGroupBox.Name = "ServerGroupBox";
-            this.ServerGroupBox.Size = new System.Drawing.Size(272, 276);
+            this.ServerGroupBox.Size = new System.Drawing.Size(284, 303);
             this.ServerGroupBox.TabIndex = 0;
             this.ServerGroupBox.TabStop = false;
             this.ServerGroupBox.Text = "Server";
@@ -406,7 +411,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 372);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(462, 399);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // tableLayoutPanel6
@@ -419,7 +424,7 @@
             this.tableLayoutPanel6.Controls.Add(this.MoveDownButton, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.MoveUpButton, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 340);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 367);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
@@ -462,7 +467,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel5.Controls.Add(this.ProxyPortTextBox, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.ProxyPortLabel, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(254, 276);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(266, 303);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.Padding = new System.Windows.Forms.Padding(3);
@@ -506,7 +511,7 @@
             this.tableLayoutPanel3.Controls.Add(this.MyCancelButton, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.OKButton, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(291, 343);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(303, 370);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
@@ -525,7 +530,7 @@
             this.tableLayoutPanel4.Controls.Add(this.DeleteButton, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.AddButton, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 276);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 303);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
@@ -546,6 +551,23 @@
             this.DuplicateButton.UseVisualStyleBackColor = true;
             this.DuplicateButton.Click += new System.EventHandler(this.DuplicateButton_Click);
             // 
+            // KcpPortLabel
+            // 
+            this.KcpPortLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.KcpPortLabel.AutoSize = true;
+            this.KcpPortLabel.Location = new System.Drawing.Point(6, 161);
+            this.KcpPortLabel.Name = "KcpPortLabel";
+            this.KcpPortLabel.Size = new System.Drawing.Size(95, 12);
+            this.KcpPortLabel.TabIndex = 18;
+            this.KcpPortLabel.Text = "Kcp Remote Port";
+            // 
+            // KcpRemotePortTextBox
+            // 
+            this.KcpRemotePortTextBox.Location = new System.Drawing.Point(107, 157);
+            this.KcpRemotePortTextBox.Name = "KcpRemotePortTextBox";
+            this.KcpRemotePortTextBox.Size = new System.Drawing.Size(160, 21);
+            this.KcpRemotePortTextBox.TabIndex = 19;
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.OKButton;
@@ -554,7 +576,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.MyCancelButton;
-            this.ClientSize = new System.Drawing.Size(574, 398);
+            this.ClientSize = new System.Drawing.Size(574, 414);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -620,6 +642,8 @@
         private System.Windows.Forms.CheckBox ShowPasswdCheckBox;
         private System.Windows.Forms.TextBox PasswordTextBox;
         private System.Windows.Forms.CheckBox UseKcpCheckBox;
+        private System.Windows.Forms.TextBox KcpRemotePortTextBox;
+        private System.Windows.Forms.Label KcpPortLabel;
     }
 }
 

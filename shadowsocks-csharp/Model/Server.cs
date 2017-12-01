@@ -22,11 +22,15 @@ namespace Shadowsocks.Model
 
         public string server;
         public int server_port;
+        public string ss_server;    //真实shadowsocks地址，防止启用kcp时，服务器地址被覆盖
+        public int ss_port;         //真实shadowsocks端口
         public string password;
         public string method;
         public bool use_kcp;
         public string plugin;
-        public string plugin_opts;
+        public int kcp_local_port;
+        public int kcp_remote_port;
+        public string kcp_argument;
         public string remarks;
         public int timeout;
 
@@ -73,7 +77,9 @@ namespace Shadowsocks.Model
             method = "aes-256-cfb";
             use_kcp = false;
             plugin = "";
-            plugin_opts = "";
+            kcp_remote_port = 20987;
+            kcp_local_port = 12948;
+            kcp_argument = "";
             password = "";
             remarks = "";
             timeout = DefaultServerTimeoutSec;
@@ -177,7 +183,7 @@ namespace Shadowsocks.Model
 
                     if (pluginParts.Length > 1)
                     {
-                        server.plugin_opts = pluginParts[1] ?? "";
+                        server.kcp_argument = pluginParts[1] ?? "";
                     }
 
                     servers.Add(server);

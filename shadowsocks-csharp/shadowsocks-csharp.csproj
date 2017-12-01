@@ -145,7 +145,7 @@
     <Compile Include="Controller\Strategy\BalancingStrategy.cs" />
     <Compile Include="Controller\Strategy\StrategyManager.cs" />
     <Compile Include="Controller\Strategy\IStrategy.cs" />
-    <Compile Include="Controller\Service\Sip003Plugin.cs" />
+    <Compile Include="Controller\Service\KcpPlugin.cs" />
     <Compile Include="Proxy\Socks5Proxy.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StringEx.cs" />
@@ -243,7 +243,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Data\abp.js.gz" />
-    <None Include="Data\client_windows_amd64.exe.gz" />
+    <None Include="Data\client_windows_386.exe.gz" />
     <None Include="Data\libsscrypto.dll.gz" />
     <None Include="Data\mgwz.dll.gz" />
     <None Include="Data\privoxy.exe.gz" />

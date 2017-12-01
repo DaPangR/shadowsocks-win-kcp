@@ -73,9 +73,9 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static byte[] client_windows_amd64_exe {
+        internal static byte[] client_windows_386_exe {
             get {
-                object obj = ResourceManager.GetObject("client_windows_amd64_exe", resourceCulture);
+                object obj = ResourceManager.GetObject("client_windows_386_exe", resourceCulture);
                 return ((byte[])(obj));
             }
         }

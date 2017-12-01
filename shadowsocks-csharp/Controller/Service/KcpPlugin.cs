@@ -10,7 +10,7 @@ using Shadowsocks.Util.ProcessManagement;
 namespace Shadowsocks.Controller.Service
 {
     // https://github.com/shadowsocks/shadowsocks-org/wiki/Plugin
-    public sealed class Sip003Plugin : IDisposable
+    public sealed class KcpPlugin : IDisposable
     {
         public IPEndPoint LocalEndPoint { get; private set; }
         public int ProcessId => _started ? _pluginProcess.Id : 0;
@@ -21,7 +21,7 @@ namespace Shadowsocks.Controller.Service
         private bool _started;
         private bool _disposed;
 
-        public static Sip003Plugin CreateIfConfigured(Server server)
+        public static KcpPlugin CreateIfConfigured(Server server)
         {
             if (server == null)
             {
@@ -33,10 +33,10 @@ namespace Shadowsocks.Controller.Service
                 return null;
             }
 
-            return new Sip003Plugin(server.plugin, server.plugin_opts, server.server, server.server_port);
+            return new KcpPlugin(server.plugin ,server.kcp_remote_port, server.kcp_local_port, server.kcp_argument, server.ss_server, server.server_port);
         }
 
-        private Sip003Plugin(string plugin, string pluginOpts, string serverAddress, int serverPort)
+        private KcpPlugin(string plugin , int kcp_remote_port, int kcp_local_port, string kcpArgument, string serverAddress, int serverPort)
         {
             if (plugin == null) throw new ArgumentNullException(nameof(plugin));
             if (string.IsNullOrWhiteSpace(serverAddress))
@@ -50,6 +50,7 @@ namespace Shadowsocks.Controller.Service
 
             var appPath = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath);
 
+            var kcp_arg = "-r " + serverAddress + ":" + kcp_remote_port + " -l :" + kcp_local_port + " " + kcpArgument;
             _pluginProcess = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -60,13 +61,7 @@ namespace Shadowsocks.Controller.Service
                     ErrorDialog = false,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     WorkingDirectory = appPath ?? Environment.CurrentDirectory,
-                    Arguments = pluginOpts,
-                    Environment =
-                    {
-                        ["SS_REMOTE_HOST"] = serverAddress,
-                        ["SS_REMOTE_PORT"] = serverPort.ToString(),
-                        ["SS_PLUGIN_OPTIONS"] = pluginOpts
-                    }
+                    Arguments = kcp_arg
                 }
             };
 

@@ -52,6 +52,7 @@ Password=密码
 Show Password=显示密码
 Encryption=加密
 Use Kcp=是否使用Kcp
+Kcp Remote Port=Kcp远程端口
 Kcp Arguments=Kcp参数
 Proxy Port=代理端口
 Remarks=备注

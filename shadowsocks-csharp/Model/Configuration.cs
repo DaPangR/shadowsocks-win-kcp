@@ -65,8 +65,8 @@ namespace Shadowsocks.Model
                     config.localPort = 1080;
                 if (config.index == -1 && config.strategy == null)
                     config.index = 0;
-                if (config.configs[0].use_kcp)
-                    config.configs[0].plugin = Util.Utils.GetTempPath("client_windows_amd64.exe");
+                if (config.configs[config.index].use_kcp)
+                    config.configs[config.index].plugin = Util.Utils.GetTempPath("client_windows_386.exe");
                 if (config.logViewer == null)
                     config.logViewer = new LogViewerConfig();
                 if (config.proxy == null)
@@ -101,6 +101,18 @@ namespace Shadowsocks.Model
 
         public static void Save(Configuration config)
         {
+            if (config.configs[config.index].use_kcp && config.configs[config.index].server.Equals("127.0.0.1"))  //如果当前server是本机IP，则进行恢复
+            {
+                config.configs[config.index].server = config.configs[config.index].ss_server;
+                config.configs[config.index].server_port = config.configs[config.index].ss_port;
+            }
+            if (config.configs[config.index].ss_server.IsNullOrEmpty())
+            {
+                config.configs[config.index].ss_server = config.configs[config.index].server;
+                config.configs[config.index].ss_port = config.configs[config.index].server_port;
+            }
+            config.configs[config.index].plugin = "";  //不希望保存kcptun插件位置
+
             if (config.index >= config.configs.Count)
                 config.index = config.configs.Count - 1;
             if (config.index < -1)

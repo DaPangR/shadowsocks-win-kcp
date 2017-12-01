@@ -49,6 +49,7 @@ namespace Shadowsocks.View
             ShowPasswdCheckBox.Text = I18N.GetString("Show Password");
             EncryptionLabel.Text = I18N.GetString("Encryption");
             UseKcpCheckBox.Text = I18N.GetString("Use Kcp");
+            KcpPortLabel.Text = I18N.GetString("Kcp Remote Port");
             PluginOptionsLabel.Text = I18N.GetString("Kcp Arguments");
             ProxyPortLabel.Text = I18N.GetString("Proxy Port");
             RemarksLabel.Text = I18N.GetString("Remarks");
@@ -59,7 +60,7 @@ namespace Shadowsocks.View
             MoveUpButton.Text = I18N.GetString("Move &Up");
             MoveDownButton.Text = I18N.GetString("Move D&own");
             this.Text = I18N.GetString("Edit Servers");
-        }
+        }//根据语言环境更新界面字体
 
         private void controller_ConfigChanged(object sender, EventArgs e)
         {
@@ -97,9 +98,14 @@ namespace Shadowsocks.View
                 }
                 server.password = PasswordTextBox.Text;
                 server.method = EncryptionSelect.Text;
-                //server.plugin = Util.Utils.GetTempPath("client_windows_amd64");
                 server.use_kcp = UseKcpCheckBox.Checked;
-                server.plugin_opts = KcpArgumentTextBox.Text;
+                server.kcp_argument = KcpArgumentTextBox.Text;
+                if (!int.TryParse(KcpRemotePortTextBox.Text, out server.kcp_remote_port))
+                {
+                    MessageBox.Show(I18N.GetString("Illegal kcp remote port number format"));
+                    ServerPortTextBox.Focus();
+                    return false;
+                }
                 server.remarks = RemarksTextBox.Text;
                 if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
                 {
@@ -122,7 +128,7 @@ namespace Shadowsocks.View
             return false;
         }
 
-        private void LoadSelectedServer()
+        private void LoadSelectedServer()//将选择的服务器信息显示到界面
         {
             if (ServersListBox.SelectedIndex >= 0 && ServersListBox.SelectedIndex < _modifiedConfiguration.configs.Count)
             {
@@ -134,13 +140,14 @@ namespace Shadowsocks.View
                 ProxyPortTextBox.Text = _modifiedConfiguration.localPort.ToString();
                 EncryptionSelect.Text = server.method ?? "aes-256-cfb";
                 UseKcpCheckBox.Checked = server.use_kcp;
-                KcpArgumentTextBox.Text = server.plugin_opts;
+                KcpRemotePortTextBox.Text = server.kcp_remote_port.ToString();
+                KcpArgumentTextBox.Text = server.kcp_argument;
                 RemarksTextBox.Text = server.remarks;
                 TimeoutTextBox.Text = server.timeout.ToString();
             }
         }
 
-        private void LoadConfiguration(Configuration configuration)
+        private void LoadConfiguration(Configuration configuration)//将配置文件中的configs显示到界面
         {
             ServersListBox.Items.Clear();
             foreach (Server server in _modifiedConfiguration.configs)
